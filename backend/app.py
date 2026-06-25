@@ -1,5 +1,6 @@
 from flask import Flask,request
 from flask_cors import CORS
+from resume_parser import extract_text_from_pdf
 
 app = Flask(__name__)
 
@@ -22,7 +23,13 @@ def upload_resume():
 
     file = request.files["resume"]
 
-    file.save(f"uploads/{file.filename}")
+    file_path = f"uploads/{file.filename}"
+
+    file.save(file_path)
+
+    resume_text = extract_text_from_pdf(file_path)
+
+    print(resume_text)
 
     return {
         "message": "Resume Uploaded Successfully"
