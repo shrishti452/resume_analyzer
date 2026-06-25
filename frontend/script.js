@@ -39,6 +39,15 @@ uploadBtn.addEventListener("click", async () => {
 
     const data = await response.json();
 
-    uploadStatus.innerText = data.message;
+    uploadStatus.innerText =
+        `
+ATS Score: ${data.score}%
+
+Matched Skills:
+${data.matched_skills.join(", ")}
+
+Missing Skills:
+${data.missing_skills.join(", ")}
+`;
 
 });

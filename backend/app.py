@@ -1,6 +1,7 @@
 from flask import Flask,request
 from flask_cors import CORS
 from resume_parser import extract_text_from_pdf
+from ats_calculator import calculate_ats_score
 
 app = Flask(__name__)
 
@@ -29,11 +30,11 @@ def upload_resume():
 
     resume_text = extract_text_from_pdf(file_path)
 
-    print(resume_text)
+    ats_result = calculate_ats_score(resume_text)
 
-    return {
-        "message": "Resume Uploaded Successfully"
-    }
+    print(ats_result)
+
+    return ats_result
 
 if __name__ == "__main__":
     app.run(debug=True)
