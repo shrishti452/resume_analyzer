@@ -20,6 +20,11 @@ uploadBtn.addEventListener("click", async () => {
 
     const file = fileInput.files[0];
 
+    const jobDescription =
+    document.getElementById("jobDescription").value;
+
+    console.log(jobDescription);
+    
     if (!file) {
         uploadStatus.innerText = "Please select a file";
         return;
@@ -29,6 +34,8 @@ uploadBtn.addEventListener("click", async () => {
 
     formData.append("resume", file);
 
+    formData.append("job_description", jobDescription);
+    
     const response = await fetch(
         "http://127.0.0.1:5000/upload",
         {

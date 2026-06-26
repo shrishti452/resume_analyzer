@@ -23,6 +23,8 @@ def test():
 def upload_resume():
 
     file = request.files["resume"]
+    job_description = request.form["job_description"]
+    print(job_description)
 
     file_path = f"uploads/{file.filename}"
 
