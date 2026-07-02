@@ -16,15 +16,17 @@ const fileInput = document.getElementById("resumeFile");
 const uploadBtn = document.getElementById("uploadBtn");
 const uploadStatus = document.getElementById("uploadStatus");
 
+const scoreElement = document.getElementById("score");
+const matchedElement = document.getElementById("matchedSkills");
+const missingElement = document.getElementById("missingSkills");
+
 uploadBtn.addEventListener("click", async () => {
 
     const file = fileInput.files[0];
 
     const jobDescription =
-    document.getElementById("jobDescription").value;
+        document.getElementById("jobDescription").value;
 
-    console.log(jobDescription);
-    
     if (!file) {
         uploadStatus.innerText = "Please select a file";
         return;
@@ -35,7 +37,7 @@ uploadBtn.addEventListener("click", async () => {
     formData.append("resume", file);
 
     formData.append("job_description", jobDescription);
-    
+
     const response = await fetch(
         "http://127.0.0.1:5000/upload",
         {
@@ -46,15 +48,20 @@ uploadBtn.addEventListener("click", async () => {
 
     const data = await response.json();
 
+    scoreElement.innerText =
+        `ATS Score : ${data.score}%`;
+
+    matchedElement.innerText =
+        `Matched Skills:
+
+${data.matched_skills.join(", ")}`;
+
+    missingElement.innerText =
+        `Missing Skills:
+
+${data.missing_skills.join(", ")}`;
+
     uploadStatus.innerText =
-        `
-ATS Score: ${data.score}%
-
-Matched Skills:
-${data.matched_skills.join(", ")}
-
-Missing Skills:
-${data.missing_skills.join(", ")}
-`;
+        "Resume uploaded successfully!";
 
 });

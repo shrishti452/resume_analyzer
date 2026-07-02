@@ -1,5 +1,13 @@
 def calculate_ats_score(resume_text,required_skills):
 
+    if not required_skills:
+        return {
+        "score": 0,
+        "matched_skills": [],
+        "missing_skills": [],
+        "message": "No recognizable skills found in the Job Description."
+    }
+
     matched_skills = []
 
     for skill in required_skills:
