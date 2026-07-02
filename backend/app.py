@@ -2,6 +2,7 @@ from flask import Flask,request
 from flask_cors import CORS
 from resume_parser import extract_text_from_pdf
 from ats_calculator import calculate_ats_score
+from skill_extractor import extract_skills
 
 app = Flask(__name__)
 
@@ -25,8 +26,13 @@ def upload_resume():
     file = request.files["resume"]
     job_description = request.form["job_description"]
 
+    required_skills = extract_skills(job_description)
+
     print("\n===== JOB DESCRIPTION =====\n")
     print(job_description)
+
+    print("\n===== REQUIRED SKILLS =====\n")
+    print(required_skills)
 
     file_path = f"uploads/{file.filename}"
 
@@ -37,7 +43,7 @@ def upload_resume():
     print("\n===== RESUME TEXT =====\n")
     print(resume_text)
 
-    ats_result = calculate_ats_score(resume_text)
+    ats_result = calculate_ats_score(resume_text,required_skills)
 
     print("\n===== ATS RESULT =====\n")
     print(ats_result)

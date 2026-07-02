@@ -1,11 +1,4 @@
-def calculate_ats_score(resume_text):
-
-    required_skills = [
-        "Python",
-        "JavaScript",
-        "React",
-        "SQL"
-    ]
+def calculate_ats_score(resume_text,required_skills):
 
     matched_skills = []
 
