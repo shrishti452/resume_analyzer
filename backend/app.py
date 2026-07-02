@@ -24,6 +24,8 @@ def upload_resume():
 
     file = request.files["resume"]
     job_description = request.form["job_description"]
+
+    print("\n===== JOB DESCRIPTION =====\n")
     print(job_description)
 
     file_path = f"uploads/{file.filename}"
@@ -32,8 +34,12 @@ def upload_resume():
 
     resume_text = extract_text_from_pdf(file_path)
 
+    print("\n===== RESUME TEXT =====\n")
+    print(resume_text)
+
     ats_result = calculate_ats_score(resume_text)
 
+    print("\n===== ATS RESULT =====\n")
     print(ats_result)
 
     return ats_result
